@@ -1,95 +1,93 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop (JVM), Server.
+# Todo KMP 프로젝트
 
-* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
-    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
-    folder is the appropriate location.
+이것은 Android, iOS, Web, Desktop (JVM), Server를 대상으로 하는 Kotlin Multiplatform 프로젝트입니다.
 
-* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+*   [/composeApp](./composeApp/src)은 Compose Multiplatform 애플리케이션 전반에 공유될 코드를 위한 곳입니다.
+    여러 하위 폴더를 포함합니다:
+    *   [commonMain](./composeApp/src/commonMain/kotlin)은 모든 타겟에 공통적인 코드를 위한 곳입니다.
+    *   다른 폴더들은 폴더 이름에 표시된 플랫폼을 위해서만 컴파일될 Kotlin 코드를 위한 곳입니다.
+        예를 들어, Kotlin 앱의 iOS 파트를 위해 Apple의 CoreCrypto를 사용하고 싶다면,
+        [iosMain](./composeApp/src/iosMain/kotlin) 폴더가 그러한 호출에 적합한 장소일 것입니다.
+        마찬가지로, Desktop (JVM) 특정 부분을 편집하고 싶다면, [jvmMain](./composeApp/src/jvmMain/kotlin)
+        폴더가 적절한 위치입니다.
 
-* [/server](./server/src/main/kotlin) is for the Ktor server application.
+*   [/iosApp](./iosApp/iosApp)은 iOS 애플리케이션을 포함합니다. Compose Multiplatform으로 UI를 공유하더라도,
+    iOS 앱을 위한 이 진입점이 필요합니다. 프로젝트의 SwiftUI 코드를 추가해야 하는 곳이기도 합니다.
 
-* [/shared](./shared/src) is for the code that will be shared between all targets in the project.
-  The most important subfolder is [commonMain](./shared/src/commonMain/kotlin). If preferred, you
-  can add code to the platform-specific folders here too.
+*   [/server](./server/src/main/kotlin)은 Ktor 서버 애플리케이션을 위한 곳입니다.
 
-### Build and Run Android Application
+*   [/shared](./shared/src)는 프로젝트의 모든 타겟 간에 공유될 코드를 위한 곳입니다.
+    가장 중요한 하위 폴더는 [commonMain](./shared/src/commonMain/kotlin)입니다. 원한다면,
+    여기에 플랫폼별 폴더에 코드를 추가할 수도 있습니다.
 
-To build and run the development version of the Android app, use the run configuration from the run widget
-in your IDE’s toolbar or build it directly from the terminal:
-- on macOS/Linux
+### Android 애플리케이션 빌드 및 실행
+
+Android 앱의 개발 버전을 빌드하고 실행하려면, IDE의 툴바에 있는 실행 위젯의 실행 구성을 사용하거나 터미널에서 직접 빌드하세요:
+- macOS/Linux에서
   ```shell
   ./gradlew :composeApp:assembleDebug
   ```
-- on Windows
+- Windows에서
   ```shell
   .\gradlew.bat :composeApp:assembleDebug
   ```
 
-### Build and Run Desktop (JVM) Application
+### Desktop (JVM) 애플리케이션 빌드 및 실행
 
-To build and run the development version of the desktop app, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
+데스크톱 앱의 개발 버전을 빌드하고 실행하려면, IDE의 툴바에 있는 실행 위젯의 실행 구성을 사용하거나 터미널에서 직접 실행하세요:
+- macOS/Linux에서
   ```shell
   ./gradlew :composeApp:run
   ```
-- on Windows
+- Windows에서
   ```shell
   .\gradlew.bat :composeApp:run
   ```
 
-### Build and Run Server
+### 서버 빌드 및 실행
 
-To build and run the development version of the server, use the run configuration from the run widget
-in your IDE’s toolbar or run it directly from the terminal:
-- on macOS/Linux
+서버의 개발 버전을 빌드하고 실행하려면, IDE의 툴바에 있는 실행 위젯의 실행 구성을 사용하거나 터미널에서 직접 실행하세요:
+- macOS/Linux에서
   ```shell
   ./gradlew :server:run
+  
   ```
-- on Windows
+- Windows에서
   ```shell
   .\gradlew.bat :server:run
   ```
 
-### Build and Run Web Application
+### 웹 애플리케이션 빌드 및 실행
 
-To build and run the development version of the web app, use the run configuration from the run widget
-in your IDE's toolbar or run it directly from the terminal:
-- for the Wasm target (faster, modern browsers):
-  - on macOS/Linux
+웹 앱의 개발 버전을 빌드하고 실행하려면, IDE의 툴바에 있는 실행 위젯의 실행 구성을 사용하거나 터미널에서 직접 실행하세요:
+- Wasm 타겟용 (더 빠름, 최신 브라우저):
+  - macOS/Linux에서
     ```shell
     ./gradlew :composeApp:wasmJsBrowserDevelopmentRun
     ```
-  - on Windows
+  - Windows에서
     ```shell
     .\gradlew.bat :composeApp:wasmJsBrowserDevelopmentRun
     ```
-- for the JS target (slower, supports older browsers):
-  - on macOS/Linux
+- JS 타겟용 (더 느림, 구형 브라우저 지원):
+  - macOS/Linux에서
     ```shell
     ./gradlew :composeApp:jsBrowserDevelopmentRun
     ```
-  - on Windows
+  - Windows에서
     ```shell
     .\gradlew.bat :composeApp:jsBrowserDevelopmentRun
     ```
 
-### Build and Run iOS Application
+### iOS 애플리케이션 빌드 및 실행
 
-To build and run the development version of the iOS app, use the run configuration from the run widget
-in your IDE’s toolbar or open the [/iosApp](./iosApp) directory in Xcode and run it from there.
+iOS 앱의 개발 버전을 빌드하고 실행하려면, IDE의 툴바에 있는 실행 위젯의 실행 구성을 사용하거나 Xcode에서 [/iosApp](./iosApp) 디렉토리를 열고 거기서 실행하세요.
 
 ---
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
+[Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
 [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+[Kotlin/Wasm](https://kotl.in/wasm/)에 대해 더 알아보세요.
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP).
+Compose/Web과 Kotlin/Wasm에 대한 여러분의 피드백을 공개 Slack 채널 [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web)에서 기다리겠습니다.
+문제가 발생하면 [YouTrack](https://youtrack.jetbrains.com/newIssue?project=CMP)에 보고해주세요.
