@@ -58,6 +58,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(projects.shared)
             implementation("io.ktor:ktor-client-core:$ktor_version")
+            // Material Icons for Compose Multiplatform
+            implementation(compose.materialIconsExtended)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
