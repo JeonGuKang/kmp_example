@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import org.jetbrains.compose.material.icons.Icons
 import org.jetbrains.compose.material.icons.filled.Add
 import org.jetbrains.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
@@ -68,7 +67,7 @@ fun App() {
                         }
                     }
                 ) {
-                    Icon(Icons.Filled.Add, contentDescription = "할 일 추가")
+                    Icon(Add, contentDescription = "할 일 추가")
                 }
             }
         ) { paddingValues ->
@@ -204,7 +203,7 @@ fun TodoListItem(
                 modifier = Modifier.size(40.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Filled.Delete,
+                    imageVector = Delete,
                     contentDescription = "삭제",
                     tint = MaterialTheme.colorScheme.error
                 )
