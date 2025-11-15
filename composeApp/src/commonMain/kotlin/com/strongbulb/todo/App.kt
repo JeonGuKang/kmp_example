@@ -4,8 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import org.jetbrains.compose.material.icons.filled.Add
-import org.jetbrains.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +16,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+
 // TODO 데이터 모델
 data class TodoItem(
     val id: Int,
@@ -25,6 +27,7 @@ data class TodoItem(
     val isDone: Boolean = false
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
 fun App() {
@@ -67,7 +70,7 @@ fun App() {
                         }
                     }
                 ) {
-                    Icon(Add, contentDescription = "할 일 추가")
+                    Icon(Icons.Filled.Add, contentDescription = "할 일 추가")
                 }
             }
         ) { paddingValues ->
@@ -203,7 +206,7 @@ fun TodoListItem(
                 modifier = Modifier.size(40.dp)
             ) {
                 Icon(
-                    imageVector = Delete,
+                    imageVector = Icons.Filled.Delete,
                     contentDescription = "삭제",
                     tint = MaterialTheme.colorScheme.error
                 )
