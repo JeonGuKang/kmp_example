@@ -44,7 +44,7 @@ fun App() {
                 TopAppBar(
                     title = { 
                         Column {
-                            Text("KMP Todo App")
+                            Text("Todo App")
                             if (totalCount > 0) {
                                 Text(
                                     text = "완료: $completedCount / 전체: $totalCount",
