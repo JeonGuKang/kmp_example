@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -60,6 +61,8 @@ kotlin {
             implementation("io.ktor:ktor-client-core:$ktor_version")
             // Material Icons for Compose Multiplatform
             implementation(compose.materialIconsExtended)
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.1.1")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

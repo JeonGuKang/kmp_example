@@ -18,22 +18,50 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import com.russhwolf.settings.Settings
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 // TODO 데이터 모델
+@Serializable
 data class TodoItem(
     val id: Int,
     val text: String,
     val isDone: Boolean = false
 )
 
+class TodoRepository(private val settings: Settings) {
+
+    private val json = Json {
+        prettyPrint = true
+        isLenient = true
+    }
+    private val todoListKey = "todo_list"
+
+    fun saveTodoList(todoList: List<TodoItem>) {
+        val jsonString = json.encodeToString(todoList)
+        settings.putString(todoListKey, jsonString)
+    }
+
+    fun loadTodoList(): List<TodoItem> {
+        val jsonString = settings.getString(todoListKey, "[]")
+        return try {
+            json.decodeFromString<List<TodoItem>>(jsonString)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        // 상태 관리
+        val todoRepository = remember { TodoRepository(Settings()) }
         var text by remember { mutableStateOf("") }
-        var todoItems by remember { mutableStateOf(listOf<TodoItem>()) }
+        var todoItems by remember { mutableStateOf(todoRepository.loadTodoList()) }
 
         // 완료된 항목 개수 계산
         val completedCount = todoItems.count { it.isDone }
@@ -42,7 +70,7 @@ fun App() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { 
+                    title = {
                         Column {
                             Text("Todo App")
                             if (totalCount > 0) {
@@ -64,7 +92,9 @@ fun App() {
                 FloatingActionButton(
                     onClick = {
                         addTodoItem(text, todoItems) { newItem ->
-                            todoItems = todoItems + newItem
+                            val newItems = todoItems + newItem
+                            todoRepository.saveTodoList(newItems)
+                            todoItems = newItems
                             text = ""
                         }
                     }
@@ -91,7 +121,9 @@ fun App() {
                     keyboardActions = KeyboardActions(
                         onDone = {
                             addTodoItem(text, todoItems) { newItem ->
-                                todoItems = todoItems + newItem
+                                val newItems = todoItems + newItem
+                                todoRepository.saveTodoList(newItems)
+                                todoItems = newItems
                                 text = ""
                             }
                         }
@@ -123,16 +155,20 @@ fun App() {
                             TodoListItem(
                                 item = item,
                                 onToggleDone = {
-                                    todoItems = todoItems.map {
+                                    val newItems = todoItems.map {
                                         if (it.id == item.id) {
                                             it.copy(isDone = !it.isDone)
                                         } else {
                                             it
                                         }
                                     }
+                                    todoRepository.saveTodoList(newItems)
+                                    todoItems = newItems
                                 },
                                 onDelete = {
-                                    todoItems = todoItems.filter { it.id != item.id }
+                                    val newItems = todoItems.filter { it.id != item.id }
+                                    todoRepository.saveTodoList(newItems)
+                                    todoItems = newItems
                                 }
                             )
                         }
