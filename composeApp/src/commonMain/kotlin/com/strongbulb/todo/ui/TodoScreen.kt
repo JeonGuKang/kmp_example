@@ -48,7 +48,7 @@ internal fun TodoScreen() {
                 TopAppBar(
                     title = {
                         Column {
-                            Text("Todo App")
+                            Text("Todo App.")
                             if (totalCount > 0) {
                                 Text(
                                     text = "완료: $completedCount / 전체: $totalCount",
